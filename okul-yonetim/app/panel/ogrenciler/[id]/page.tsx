@@ -1,14 +1,13 @@
 'use client';
 
-import React, { useState, use } from 'react';
+import React, { useState } from 'react';
 import { useVeri } from '@/contexts/VeriContext';
 import { SinavNotu, Devamsizlik, DavranisNotu } from '@/types/veriTipleri';
 import { ArrowLeft, Save, Calendar, Star } from 'lucide-react';
 import Link from 'next/link';
 
-export default function OgrenciDetayPage({ params }: { params: Promise<{ id: string }> }) {
-  // Unwrap params using React.use()
-  const { id } = use(params);
+export default function OgrenciDetayPage({ params }: { params: { id: string } }) {
+  const { id } = params;
 
   const { ogrenciler, notlar, devamsizliklar, davranisNotlari, notEkle, devamsizlikEkle, davranisNotuEkle } = useVeri();
 

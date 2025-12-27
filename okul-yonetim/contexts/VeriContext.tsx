@@ -61,6 +61,7 @@ export function VeriSaglayici({ children }: { children: ReactNode }) {
       setDavranisNotlari(ornekDavranislar);
     }
     setYukleniyor(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Veri değiştiğinde kaydet

@@ -1,12 +1,12 @@
 'use client';
 
-import React, { use } from 'react';
+import React from 'react';
 import { useVeri } from '@/contexts/VeriContext';
 import { ArrowLeft, Printer } from 'lucide-react';
 import Link from 'next/link';
 
-export default function KarnePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function KarnePage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const { ogrenciler, notlar, devamsizliklar, davranisNotlari } = useVeri();
 
   const ogrenci = ogrenciler.find(o => o.id === id);

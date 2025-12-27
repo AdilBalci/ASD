@@ -1,0 +1,15 @@
+
+> okul-yonetim@0.1.0 start
+> next start
+
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3000
+
+ ✓ Starting...
+ ✓ Ready in 721ms
+OgrenciDetayPage render - params: { id: '1' }
+OgrenciDetayPage - ogrenciler count: 0
+OgrenciDetayPage - found ogrenci: undefined
+OgrenciDetayPage render - params: { id: '1' }
+OgrenciDetayPage - ogrenciler count: 0
+OgrenciDetayPage - found ogrenci: undefined
