@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useVeri } from '@/contexts/VeriContext';
-import { Search, UserPlus } from 'lucide-react';
+import { Search, UserPlus, Users, SearchX } from 'lucide-react';
 import { Ogrenci } from '@/types/veriTipleri';
 import Link from 'next/link';
 
@@ -54,6 +54,7 @@ export default function OgrencilerPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
+            aria-label="Öğrenci ara"
             placeholder="Öğrenci ara (Ad, Soyad, Numara)..."
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={aramaMetni}
@@ -97,8 +98,41 @@ export default function OgrencilerPage() {
               ))
             ) : (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-gray-500">
-                  Öğrenci bulunamadı.
+                <td colSpan={5} className="p-12 text-center text-gray-500">
+                  {ogrenciler.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center gap-3">
+                      <div className="bg-gray-100 p-4 rounded-full">
+                        <Users size={48} className="text-gray-400" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900">Henüz öğrenci eklenmemiş</h3>
+                      <p className="text-sm text-gray-500 max-w-sm mx-auto">
+                        Sisteme yeni bir öğrenci eklemek için &quot;Yeni Öğrenci&quot; butonunu kullanabilirsiniz.
+                      </p>
+                      <button
+                        onClick={() => setYeniOgrenciModalAcik(true)}
+                        className="mt-2 text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-2"
+                      >
+                        <UserPlus size={16} />
+                        İlk Öğrenciyi Ekle
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center gap-3">
+                      <div className="bg-gray-100 p-4 rounded-full">
+                        <SearchX size={48} className="text-gray-400" />
+                      </div>
+                      <h3 className="text-lg font-medium text-gray-900">Sonuç bulunamadı</h3>
+                      <p className="text-sm text-gray-500">
+                        &quot;{aramaMetni}&quot; araması için herhangi bir eşleşme bulunamadı.
+                      </p>
+                      <button
+                        onClick={() => setAramaMetni('')}
+                        className="mt-2 text-blue-600 hover:text-blue-700 font-medium text-sm"
+                      >
+                        Aramayı Temizle
+                      </button>
+                    </div>
+                  )}
                 </td>
               </tr>
             )}
