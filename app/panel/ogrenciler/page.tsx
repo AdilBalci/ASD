@@ -55,6 +55,7 @@ export default function OgrencilerPage() {
           <input
             type="text"
             placeholder="Öğrenci ara (Ad, Soyad, Numara)..."
+            aria-label="Öğrenci ara"
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={aramaMetni}
             onChange={(e) => setAramaMetni(e.target.value)}
@@ -89,6 +90,7 @@ export default function OgrencilerPage() {
                     <Link
                       href={`/panel/ogrenciler/${ogrenci.id}`}
                       className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      aria-label={`${ogrenci.ad} ${ogrenci.soyad} için veri gir ve detayları gör`}
                     >
                       Veri Gir / Detay
                     </Link>
@@ -113,8 +115,10 @@ export default function OgrencilerPage() {
             <h2 className="text-xl font-bold mb-4 text-gray-900">Yeni Öğrenci Ekle</h2>
             <form onSubmit={handleOgrenciEkle} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
+                <label htmlFor="ogrenci-ad" className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
                 <input
+                  id="ogrenci-ad"
+                  autoFocus
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -123,8 +127,9 @@ export default function OgrencilerPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
+                <label htmlFor="ogrenci-soyad" className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
                 <input
+                  id="ogrenci-soyad"
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -134,8 +139,9 @@ export default function OgrencilerPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
+                  <label htmlFor="ogrenci-numara" className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
                   <input
+                    id="ogrenci-numara"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -144,8 +150,9 @@ export default function OgrencilerPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
+                  <label htmlFor="ogrenci-sinif" className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
                   <input
+                    id="ogrenci-sinif"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -155,8 +162,9 @@ export default function OgrencilerPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
+                <label htmlFor="ogrenci-veli" className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
                 <input
+                  id="ogrenci-veli"
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
                   value={yeniOgrenci.veliAdi}
