@@ -71,7 +71,11 @@ export default function OgrenciDetayPage({ params }: { params: { id: string } })
   return (
     <div>
       <div className="flex items-center gap-4 mb-6">
-        <Link href="/panel/ogrenciler" className="p-2 hover:bg-gray-200 rounded-full text-gray-600">
+        <Link
+          href="/panel/ogrenciler"
+          className="p-2 hover:bg-gray-200 rounded-full text-gray-600"
+          aria-label="Geri Dön"
+        >
           <ArrowLeft size={24} />
         </Link>
         <div>
