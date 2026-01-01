@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useVeri } from '@/contexts/VeriContext';
-import { Search, UserPlus } from 'lucide-react';
+import { Search, UserPlus, X } from 'lucide-react';
 import { Ogrenci } from '@/types/veriTipleri';
 import Link from 'next/link';
 
@@ -54,11 +54,21 @@ export default function OgrencilerPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
           <input
             type="text"
+            aria-label="Öğrenci ara"
             placeholder="Öğrenci ara (Ad, Soyad, Numara)..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={aramaMetni}
             onChange={(e) => setAramaMetni(e.target.value)}
           />
+          {aramaMetni && (
+            <button
+              onClick={() => setAramaMetni('')}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600 p-1"
+              aria-label="Aramayı temizle"
+            >
+              <X size={16} />
+            </button>
+          )}
         </div>
       </div>
 
