@@ -113,8 +113,9 @@ export default function OgrencilerPage() {
             <h2 className="text-xl font-bold mb-4 text-gray-900">Yeni Öğrenci Ekle</h2>
             <form onSubmit={handleOgrenciEkle} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
+                <label htmlFor="ad" className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
                 <input
+                  id="ad"
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -123,8 +124,9 @@ export default function OgrencilerPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
+                <label htmlFor="soyad" className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
                 <input
+                  id="soyad"
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -134,8 +136,9 @@ export default function OgrencilerPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
+                  <label htmlFor="numara" className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
                   <input
+                    id="numara"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -144,8 +147,9 @@ export default function OgrencilerPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
+                  <label htmlFor="sinif" className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
                   <input
+                    id="sinif"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -155,8 +159,9 @@ export default function OgrencilerPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
+                <label htmlFor="veliAdi" className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
                 <input
+                  id="veliAdi"
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
                   value={yeniOgrenci.veliAdi}
