@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useVeri } from '@/contexts/VeriContext';
-import { Search, UserPlus } from 'lucide-react';
+import { Search, UserPlus, X } from 'lucide-react';
 import { Ogrenci } from '@/types/veriTipleri';
 import Link from 'next/link';
 
@@ -13,6 +13,17 @@ export default function OgrencilerPage() {
   const [yeniOgrenci, setYeniOgrenci] = useState<Partial<Ogrenci>>({
     ad: '', soyad: '', numara: '', sinif: '', veliAdi: ''
   });
+
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && yeniOgrenciModalAcik) {
+        setYeniOgrenciModalAcik(false);
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [yeniOgrenciModalAcik]);
 
   const filtrelenmisOgrenciler = ogrenciler.filter(ogrenci =>
     ogrenci.ad.toLowerCase().includes(aramaMetni.toLowerCase()) ||
@@ -55,6 +66,7 @@ export default function OgrencilerPage() {
           <input
             type="text"
             placeholder="Öğrenci ara (Ad, Soyad, Numara)..."
+            aria-label="Öğrenci ara"
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={aramaMetni}
             onChange={(e) => setAramaMetni(e.target.value)}
@@ -108,13 +120,33 @@ export default function OgrencilerPage() {
 
       {/* Modal */}
       {yeniOgrenciModalAcik && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4 text-gray-900">Yeni Öğrenci Ekle</h2>
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          onClick={() => setYeniOgrenciModalAcik(false)}
+        >
+          <div
+            className="bg-white rounded-lg p-6 w-full max-w-md relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 id="modal-title" className="text-xl font-bold text-gray-900">Yeni Öğrenci Ekle</h2>
+              <button
+                onClick={() => setYeniOgrenciModalAcik(false)}
+                className="text-gray-400 hover:text-gray-600 rounded-full p-1"
+                aria-label="Kapat"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
             <form onSubmit={handleOgrenciEkle} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
+                <label htmlFor="ad" className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
                 <input
+                  id="ad"
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -123,8 +155,9 @@ export default function OgrencilerPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
+                <label htmlFor="soyad" className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
                 <input
+                  id="soyad"
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -134,8 +167,9 @@ export default function OgrencilerPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
+                  <label htmlFor="numara" className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
                   <input
+                    id="numara"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -144,8 +178,9 @@ export default function OgrencilerPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
+                  <label htmlFor="sinif" className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
                   <input
+                    id="sinif"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -155,8 +190,9 @@ export default function OgrencilerPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
+                <label htmlFor="veliAdi" className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
                 <input
+                  id="veliAdi"
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
                   value={yeniOgrenci.veliAdi}
