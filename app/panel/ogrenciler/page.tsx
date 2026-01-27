@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useVeri } from '@/contexts/VeriContext';
 import { Search, UserPlus } from 'lucide-react';
 import { Ogrenci } from '@/types/veriTipleri';
@@ -13,6 +13,22 @@ export default function OgrencilerPage() {
   const [yeniOgrenci, setYeniOgrenci] = useState<Partial<Ogrenci>>({
     ad: '', soyad: '', numara: '', sinif: '', veliAdi: ''
   });
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setYeniOgrenciModalAcik(false);
+      }
+    };
+
+    if (yeniOgrenciModalAcik) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [yeniOgrenciModalAcik]);
 
   const filtrelenmisOgrenciler = ogrenciler.filter(ogrenci =>
     ogrenci.ad.toLowerCase().includes(aramaMetni.toLowerCase()) ||
@@ -108,13 +124,20 @@ export default function OgrencilerPage() {
 
       {/* Modal */}
       {yeniOgrenciModalAcik && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
           <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold mb-4 text-gray-900">Yeni Öğrenci Ekle</h2>
+            <h2 id="modal-title" className="text-xl font-bold mb-4 text-gray-900">Yeni Öğrenci Ekle</h2>
             <form onSubmit={handleOgrenciEkle} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
+                <label htmlFor="ad" className="block text-sm font-medium text-gray-700 mb-1">Ad</label>
                 <input
+                  id="ad"
+                  autoFocus
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -123,8 +146,9 @@ export default function OgrencilerPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
+                <label htmlFor="soyad" className="block text-sm font-medium text-gray-700 mb-1">Soyad</label>
                 <input
+                  id="soyad"
                   required
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -134,8 +158,9 @@ export default function OgrencilerPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
+                  <label htmlFor="numara" className="block text-sm font-medium text-gray-700 mb-1">Numara</label>
                   <input
+                    id="numara"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -144,8 +169,9 @@ export default function OgrencilerPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
+                  <label htmlFor="sinif" className="block text-sm font-medium text-gray-700 mb-1">Sınıf</label>
                   <input
+                    id="sinif"
                     required
                     type="text"
                     className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
@@ -155,8 +181,9 @@ export default function OgrencilerPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
+                <label htmlFor="veliAdi" className="block text-sm font-medium text-gray-700 mb-1">Veli Adı (Opsiyonel)</label>
                 <input
+                  id="veliAdi"
                   type="text"
                   className="w-full border border-gray-300 rounded-md p-2 text-gray-900"
                   value={yeniOgrenci.veliAdi}
